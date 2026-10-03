@@ -27,10 +27,13 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore SampleApi.sln
+        run: dotnet restore SampleApi.slnx
 
       - name: Build
-        run: dotnet build SampleApi.sln --no-restore --configuration Release
+        run: dotnet build SampleApi.slnx --no-restore --configuration Release
+        
+      - name: Run tests
+        run: dotnet test SampleApi.sln --no-build --configuration Release
 
       - name: Run tests
         run: dotnet test SampleApi.sln --no-build --configuration Release
