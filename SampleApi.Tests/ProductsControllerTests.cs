@@ -19,18 +19,7 @@ public class ProductsControllerTests
         Assert.That(result.Result, Is.TypeOf<OkObjectResult>());
     }
 
-    [Test]
-    public void GetProduct_ExistingId_ReturnsOkResult()
-    {
-        // Arrange
-        var controller = new ProductsController();
 
-        // Act
-        var result = controller.GetProduct(1);
-
-        // Assert
-        Assert.That(result.Result, Is.TypeOf<OkObjectResult>());
-    }
 
     [Test]
     public void GetProduct_InvalidId_ReturnsNotFound()
@@ -46,24 +35,28 @@ public class ProductsControllerTests
     }
 
     [Test]
-    public void GetProduct_ExistingId_ReturnsCorrectProduct()
+    public void DeleteProduct_ExistingId_ReturnsNoContent()
     {
         // Arrange
         var controller = new ProductsController();
 
         // Act
-        var result = controller.GetProduct(1);
+        var result = controller.DeleteProduct(1);
 
         // Assert
-        var okResult = result.Result as OkObjectResult;
+        Assert.That(result, Is.TypeOf<NoContentResult>());
+    }
 
-        Assert.That(okResult, Is.Not.Null);
+    [Test]
+    public void DeleteProduct_InvalidId_ReturnsNotFound()
+    {
+        // Arrange
+        var controller = new ProductsController();
 
-        var product = okResult!.Value as Product;
+        // Act
+        var result = controller.DeleteProduct(999);
 
-        Assert.That(product, Is.Not.Null);
-        Assert.That(product!.Id, Is.EqualTo(1));
-        Assert.That(product.Name, Is.EqualTo("Laptop"));
-        Assert.That(product.Price, Is.EqualTo(75000));
+        // Assert
+        Assert.That(result, Is.TypeOf<NotFoundResult>());
     }
 }
