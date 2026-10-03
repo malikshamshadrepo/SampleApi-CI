@@ -31,9 +31,6 @@ jobs:
 
       - name: Build
         run: dotnet build SampleApi.slnx --no-restore --configuration Release
-        
-      - name: Run tests
-        run: dotnet test SampleApi.slnx --no-build --configuration Release
 
       - name: Run tests
-        run: dotnet test SampleApi.sln --no-build --configuration Release
+        run: dotnet test SampleApi.slnx --no-build --configuration Release
