@@ -1,4 +1,6 @@
 <Solution>
+  <Folder Name="/.github/" />
+  <Folder Name="/.github/workflows/" />
   <Project Path="SampleApi.Tests/SampleApi.Tests.csproj" />
   <Project Path="SampleApi/SampleApi.csproj" />
 </Solution>
