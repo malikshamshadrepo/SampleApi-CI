@@ -3,12 +3,11 @@ name: CI - Build Test Quality
 on:
   push:
     branches:
-      - main
-      - develop
+     
 
   pull_request:
     branches:
-     
+      - main
 jobs:
 
   build-test-quality:
