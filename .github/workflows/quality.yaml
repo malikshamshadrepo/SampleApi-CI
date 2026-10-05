@@ -1,0 +1,42 @@
+name: CI - Build Test Quality
+
+on:
+  push:
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  build-test-quality:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore SampleApi.slnx
+
+      - name: Check code formatting
+        run: dotnet format SampleApi.slnx --verify-no-changes
+
+      - name: Build solution
+        run: dotnet build SampleApi.slnx --no-restore --configuration Release
+
+      - name: Run tests with code coverage
+        run: dotnet test SampleApi.slnx --no-build --configuration Release --collect:"XPlat Code Coverage"
+
+      - name: Upload code coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage
+          path: '**/TestResults/**/coverage.cobertura.xml'
